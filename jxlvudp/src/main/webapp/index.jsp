@@ -39,7 +39,9 @@
             <a href="#"><li class="li_bian" id="organization" hidden="hidden">组织机构管理</li></a>
             <a href="#"><li class="li_bian" id="clerk" hidden="hidden">员工管理</li></a>
             <a href="text1.html" target="content"><li class="li_bian" hidden="hidden">数据管理</li></a>
-
+            <a href="#"><li class="li_bian" id="cartypes" hidden="hidden">汽车品牌信息管理</li></a>
+            <a href="#"><li class="li_bian" id="store" hidden="hidden">汽车库存信息管理</li></a>
+            <a href="#"><li class="li_bian" id="vender">厂家信息</li></a>
         </div>
         <div title="通用网站后台" style="width:195px;" class="nav_gw">
             <a href="#"><li class="li_bian" id="website" hidden="hidden">子网站或频道管理</li></a>
@@ -194,6 +196,15 @@
         });
         $(document).on("click","#test",function() {
             addTab("测试管理", getRootPath()+"/test/index");
+        });
+        $(document).on("click","#cartypes",function() {
+            addTab("汽车销售信息管理", getRootPath()+"/cartypes/index");
+        });
+        $(document).on("click","#store",function() {
+            addTab("汽车库存信息管理", getRootPath()+"/store/index");
+        });
+        $(document).on("click","#vender",function() {
+            addTab("汽车厂家信息管理", getRootPath()+"/vender/index");
         });
         $(document).on("click","#notice",function() {
             addTab("通知管理", getRootPath()+"/notice/index");
