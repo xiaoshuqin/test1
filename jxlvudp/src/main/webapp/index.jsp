@@ -34,6 +34,7 @@
             </shiro:hasPermission>
             <a href="#"><li class="li_bian"  id="actor">角色管理</li></a>
             <a href="#"><li class="li_bian" id="carUser">用户管理</li></a>
+            <a href="#"><li class="li_bian" id="employee">员工管理</li></a>
             <a href="#"><li class="li_bian" id="userOnline" hidden="hidden">用户在线管理</li></a>
             <a href="#"><li class="li_bian" id="systemMenu">系统菜单管理</li></a>
             <a href="#"><li class="li_bian" id="organization" hidden="hidden">组织机构管理</li></a>
@@ -222,6 +223,9 @@
         });
         $(document).on("click","#carUser",function() {
             addTab("用户管理", getRootPath()+"/carUser/index");
+        });
+        $(document).on("click","#employee",function() {
+            addTab("员工管理", getRootPath()+"/employee/index");
         });
         $(document).on("click","#userOnline",function() {
             addTab("用户在线管理", getRootPath()+"/user/userOnline");
