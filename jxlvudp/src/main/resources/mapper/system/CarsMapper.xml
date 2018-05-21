@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.CarsMapper">
+    <resultMap id="BaseResultMap" type="kesun.entity.system.Cars">
+        <id column="id"  property="id" />
+        <result column="name" property="name" />
+        <result column="color" property="color" />
+        <result column="product_date" property="product_date"></result>
+        <result column="purchase_price" property="purchase_price" />
+        <result column="sale_price" property="sale_price" />
+        <association property="vender" javaType="kesun.entity.system.Vender">
+            <id column="vender"  property="id" />
+            <result column="vender_name" property="name" />
+        </association>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, name, color,product_date,purchase_price,sale_price,vender,vender_name
+    </sql>
+    <select id="getRowsCount" parameterType="java.util.Map"  resultType="java.lang.Integer">
+        select count(1) as total from vwcars where
+        <trim  suffixOverrides="or">
+            <if test="id!=null">
+                id like '%${id}%' or
+            </if>
+            <if test="name!=null">
+                name like '%${name}%' or
+            </if>
+        </trim>
+    </select>
+
+    <select id="selectForObject" parameterType="java.util.Map"  resultType="java.util.Map">
+        select <include refid="Base_Column_List" />
+        from vwcars where
+        <trim  suffixOverrides="or">
+            <if test="id!=null">
+                id like '%${id}%' or
+            </if>
+            <if test="name!=null">
+                name like '%${name}%' or
+            </if>
+        </trim>
+        order by name ASC
+    </select>
+
+    <select id="findByPage" parameterType="java.util.Map"  resultType="java.util.Map">
+        select <include refid="Base_Column_List" />
+        from vwcars where
+        <trim  suffixOverrides="or">
+            <if test="id!=null">
+                id like '%${id}%' or
+            </if>
+            <if test="name!=null">
+                name like '%${name}%' or
+            </if>
+        </trim>
+
+        order by name ASC
+        <if test="start !=0 or limit!=0">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+    <select id="selectForMap" parameterType="java.util.Map"  resultType="java.util.Map">
+        select <include refid="Base_Column_List" />
+        from vwcars where name like '%${name}%' order by name ASC
+
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from vwcars
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="findInUseById" parameterType="java.lang.String" resultType="java.util.Map">
+        select *
+        from vender
+        where 1=2
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from cars
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <!-- 批量删除 参数类型是List-->
+    <delete id="batchDelete" parameterType="java.util.List">
+        DELETE from cars where id in(
+        <foreach collection="list" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+    <insert id="insert" parameterType="kesun.entity.system.Cars">
+        insert into cars (id, name, color, product_date,
+        purchase_price, sale_price,vender_id) values (
+        #{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, #{product_date,jdbcType=TIMESTAMP},
+        #{purchase_price,jdbcType=VARCHAR}, #{sale_price,jdbcType=VARCHAR}, #{vender.id,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="batchInsert" parameterType="kesun.entity.system.Cars">
+        insert into cars
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="color != null">
+                color,
+            </if>
+            <if test="product_date != null">
+                product_date,
+            </if>
+            <if test="purchase_price != null">
+                purchase_price,
+            </if>
+            <if test="sale_price != null">
+                sale_price,
+            </if>
+            <if test="vender != null">
+                vender_id,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="color != null">
+                #{color,jdbcType=VARCHAR},
+            </if>
+            <if test="product_date != null">
+                #{product_date,jdbcType=TIMESTAMP},
+            </if>
+            <if test="purchase_price != null">
+                #{purchase_price,jdbcType=VARCHAR},
+            </if>
+            <if test="sale_price != null">
+                #{sale_price,jdbcType=VARCHAR},
+            </if>
+            <if test="vender != null">
+                #{vender.id,jdbcType=VARCHAR},
+            </if>
+
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="kesun.entity.system.Cars">
+        update cars
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="color != null">
+                color = #{color,jdbcType=VARCHAR},
+            </if>
+            <if test="product_date != null">
+                product_date = #{product_date,jdbcType=TIMESTAMP},
+            </if>
+            <if test="purchase_price != null">
+                purchase_price = #{purchase_price,jdbcType=VARCHAR},
+            </if>
+            <if test="sale_price != null">
+                sale_price = #{sale_price,jdbcType=VARCHAR},
+            </if>
+            <if test="vender != null">
+                vender_id = #{vender.id,jdbcType=VARCHAR},
+            </if>
+
+        </set>
+        where id = #{oldId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="kesun.entity.system.Cars">
+        update cars
+        set
+
+        name = #{name,jdbcType=VARCHAR},
+        color = #{color,jdbcType=VARCHAR},
+        product_date = #{product_date,jdbcType=TIMESTAMP},
+        purchase_price = #{purchase_price,jdbcType=VARCHAR},
+        sale_price = #{sale_price,jdbcType=VARCHAR},
+        vender_id = #{vender.id,jdbcType=VARCHAR}
+
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

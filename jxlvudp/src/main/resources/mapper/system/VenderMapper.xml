@@ -34,8 +34,8 @@
 
     <select id="selectForObject" parameterType="java.util.Map"  resultType="java.util.Map">
         select *
-        from vender where
-        where
+        from vender
+        where 1=1
         <trim  suffixOverrides="or">
             <if test="id!=null">
                 id like '%${id}%' or
@@ -77,9 +77,9 @@
         </if>
     </select>
     <!--判断数据是否在使用中-->
-    <!--<select id="findInUseById" parameterType="java.lang.String" resultType="java.util.Map">-->
-    <!--select id from website where id=#{id,jdbcType=VARCHAR}-->
-    <!--</select>-->
+    <select id="findInUseById" parameterType="java.lang.String" resultType="java.util.Map">
+         select id from cars where vender_id=#{id,jdbcType=VARCHAR}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete from vender
         where id = #{id,jdbcType=VARCHAR}
