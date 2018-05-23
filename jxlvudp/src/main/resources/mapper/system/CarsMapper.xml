@@ -31,7 +31,7 @@
 
     <select id="selectForObject" parameterType="java.util.Map"  resultType="java.util.Map">
         select <include refid="Base_Column_List" />
-        from vwcars where
+        from vwcars where 1=1
         <trim  suffixOverrides="or">
             <if test="id!=null">
                 id like '%${id}%' or
@@ -74,9 +74,9 @@
         where id = #{id,jdbcType=VARCHAR}
     </select>
     <select id="findInUseById" parameterType="java.lang.String" resultType="java.util.Map">
-        select *
-        from vender
-        where 1=2
+        select id
+        from store
+        where id = #{id,jdbcType=VARCHAR}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete from cars

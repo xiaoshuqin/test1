@@ -9,7 +9,7 @@
 <%@ include file="/header/init.jsp"%>
 <html>
 <head>
-    <title>汽车信息管理</title>
+    <title>库存管理</title>
     <link href="<%=basePath%>/plugins/layui/css/layui.css" rel="stylesheet" />
     <script src="<%=basePath%>/plugins/layui/layui.js"></script>
     <script src="<%=basePath%>/script/common/kb.js"></script>
@@ -32,26 +32,26 @@
         </button>--%>
     </div>
 </div>
-<table class="easyui-datagrid" title="汽车信息管理" style="height:auto" id="dgCars"
+<table class="easyui-datagrid" title="库存管理" style="height:auto" id="dgStore"
        data-options="rownumbers:true,pagination:true,collapsible:true,striped:true,fit:true,toolbar:'#tb'">
     <thead>
     <tr>
         <th data-options="field:'id1',checkbox:true"></th>
-        <th data-options="field:'id',width:80">汽车编号</th>
-        <th data-options="field:'name',width:80">汽车型号</th>
-        <th data-options="field:'color',width:80">汽车颜色</th>
-        <th data-options="field:'product_date',width:120,formatter: formatDatebox">出厂日期</th>
-        <th data-options="field:'purchase_price',width:100">进价</th>
-        <th data-options="field:'sale_price',width:100">出售价格</th>
-        <th data-options="field:'vender',width:60" hidden="hidden">厂家编号</th>
-        <th data-options="field:'vender_name',width:100">厂家名称</th>
+        <th data-options="field:'id',width:100">仓库号</th>
+        <th data-options="field:'cars',width:180" hidden="hidden">汽车编号</th>
+        <th data-options="field:'name',width:100">汽车型号</th>
+        <th data-options="field:'counts',width:100">库存量</th>
+        <th data-options="field:'entry_time',width:150,formatter: formatDatebox">入库时间</th>
+        <th data-options="field:'out_time',width:150,formatter: formatDatebox">出库时间</th>
+        <th data-options="field:'employee',width:100" hidden="hidden">员工号</th>
+        <th data-options="field:'employee_name',width:100">员工名</th>
         <th data-options="field:'ids',formatter:jxmstc.formateOperateForEasyui" width="120"
             align="center">操作</th>
     </tr>
     </thead>
 </table>
 
-<script src="<%=basePath%>/script/business/system/cars.js"></script>
+<script src="<%=basePath%>/script/business/system/store.js"></script>
 
 </body>
 </html>

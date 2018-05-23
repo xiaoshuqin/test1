@@ -40,9 +40,10 @@
             <a href="#"><li class="li_bian" id="clerk" hidden="hidden">员工管理</li></a>
             <a href="text1.html" target="content"><li class="li_bian" hidden="hidden">数据管理</li></a>
             <a href="#"><li class="li_bian" id="cartypes" hidden="hidden">汽车品牌信息管理</li></a>
-            <a href="#"><li class="li_bian" id="store" hidden="hidden">汽车库存信息管理</li></a>
             <a href="#"><li class="li_bian" id="vender">厂家信息</li></a>
             <a href="#"><li class="li_bian" id="cars">汽车信息</li></a>
+            <a href="#"><li class="li_bian" id="employee">员工信息</li></a>
+            <a href="#"><li class="li_bian" id="store">库存管理</li></a>
         </div>
         <div title="通用网站后台" style="width:195px;" class="nav_gw">
             <a href="#"><li class="li_bian" id="website" hidden="hidden">子网站或频道管理</li></a>
@@ -204,11 +205,17 @@
         $(document).on("click","#store",function() {
             addTab("汽车库存信息管理", getRootPath()+"/store/index");
         });
+        $(document).on("click","#employee",function() {
+            addTab("汽车信息管理", getRootPath()+"/employee/index");
+        });
         $(document).on("click","#vender",function() {
             addTab("汽车厂家信息管理", getRootPath()+"/vender/index");
         });
         $(document).on("click","#cars",function() {
             addTab("汽车信息管理", getRootPath()+"/cars/index");
+        });
+        $(document).on("click","#store",function() {
+            addTab("汽车库存管理", getRootPath()+"/store/index");
         });
         $(document).on("click","#notice",function() {
             addTab("通知管理", getRootPath()+"/notice/index");

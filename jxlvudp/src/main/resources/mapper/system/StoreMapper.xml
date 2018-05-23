@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.StoreMapper">
+    <resultMap id="BaseResultMap" type="kesun.entity.system.Store">
+        <id column="id"  property="id" />
+        <result column="counts" property="counts" />
+        <result column="entry_time" property="entry_time"/>
+        <result column="out_time" property="out_time" />
+
+        <association property="employee" javaType="kesun.entity.system.Employee">
+            <id column="employee"  property="id" />
+            <result column="employee_name" property="name" />
+        </association>
+
+        <association property="cars" javaType="kesun.entity.system.Cars">
+            <id column="cars"  property="id" />
+            <result column="name" property="name" />
+        </association>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, counts, entry_time,out_time,employee,employee_name,cars,name
+    </sql>
+    <select id="getRowsCount" parameterType="java.util.Map"  resultType="java.lang.Integer">
+        select count(1) as total from vwstore where
+        <trim  suffixOverrides="or">
+            <if test="id!=null">
+                id like '%${id}%'
+            </if>
+           <!-- <if test="name!=null">
+                name like '%${name}%' or
+            </if>-->
+        </trim>
+    </select>
+
+    <select id="selectForObject" parameterType="java.util.Map"  resultType="java.util.Map">
+        select <include refid="Base_Column_List" />
+        from vwstore where 1=1
+        <trim  suffixOverrides="or">
+            <if test="id!=null">
+                id like '%${id}%'
+            </if>
+            <!--<if test="name!=null">
+                name like '%${name}%' or
+            </if>-->
+        </trim>
+        order by name ASC
+    </select>
+
+    <select id="findByPage" parameterType="java.util.Map"  resultType="java.util.Map">
+        select <include refid="Base_Column_List" />
+        from vwstore where
+        <trim  suffixOverrides="or">
+            <if test="id!=null">
+                id like '%${id}%'
+            </if>
+            <!--<if test="cars!=null">
+                name like '%${name}%' or
+            </if>-->
+        </trim>
+        order by name ASC
+        <if test="start !=0 or limit!=0">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+    <select id="selectForMap" parameterType="java.util.Map"  resultType="java.util.Map">
+        select <include refid="Base_Column_List" />
+        from vwstore where name like '%${name}%' order by name ASC
+
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from vwstore
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="findInUseById" parameterType="java.lang.String" resultType="java.util.Map">
+        select *
+        from cars
+        where 1=2
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from store
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+   <!-- &lt;!&ndash; 批量删除 参数类型是List&ndash;&gt;
+    <delete id="batchDelete" parameterType="java.util.List">
+        DELETE from store where id in(
+        <foreach collection="list" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>-->
+
+    <insert id="insert" parameterType="kesun.entity.system.Store">
+        insert into store (id, name, counts, entry_time,out_time, employee_id) values
+        (#{id,jdbcType=VARCHAR}, #{cars.id,jdbcType=VARCHAR}, #{counts,jdbcType=VARCHAR}, #{entry_time,jdbcType=TIMESTAMP}, #{out_time,jdbcType=TIMESTAMP}, #{employee.id,jdbcType=VARCHAR})
+    </insert>
+
+   <!-- <insert id="batchInsert" parameterType="kesun.entity.system.Store">
+        insert into store
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="cars != null">
+                name,
+            </if>
+            <if test="counts != null">
+                counts,
+            </if>
+            <if test="entry_time != null">
+                entry_time,
+            </if>
+            <if test="out_time != null">
+                out_time,
+            </if>
+            <if test="employee != null">
+                employee_id,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="cars != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="counts != null">
+                #{counts,jdbcType=VARCHAR},
+            </if>
+            <if test="entry_time != null">
+                #{entry_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="out_time != null">
+                #{out_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="employee != null">
+                #{employee.id,jdbcType=VARCHAR},
+            </if>
+
+        </trim>
+    </insert>-->
+
+    <!--<update id="updateByPrimaryKeySelective" parameterType="kesun.entity.system.Store">
+        update store
+        <set>
+            <if test="name != null">
+                name = #{cars.id,jdbcType=VARCHAR},
+            </if>
+            <if test="counts != null">
+                counts = #{counts,jdbcType=VARCHAR},
+            </if>
+            <if test="entry_time != null">
+                entry_time = #{entry_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="out_time != null">
+                out_time = #{out_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="employee != null">
+                employee_id = #{employee.id,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{oldId,jdbcType=VARCHAR}
+    </update>-->
+
+    <update id="updateByPrimaryKey" parameterType="kesun.entity.system.Store">
+        update store
+        set
+
+        name = #{cars.id,jdbcType=VARCHAR},
+        counts = #{counts,jdbcType=VARCHAR},
+        entry_time = #{entry_time,jdbcType=TIMESTAMP},
+        out_time = #{out_time,jdbcType=TIMESTAMP},
+        employee_id = #{employee.id,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+</mapper>
