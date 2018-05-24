@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.SellMapper">
+    <resultMap id="BaseResultMap" type="kesun.entity.system.Sell">
+        <id column="id"  property="id" />
+        <result column="sale_time" property="sale_time" />
+        <result column="counts" property="counts" />
+        <result column="sale_counts" property="sale_counts" />
+        <association property="cars" javaType="kesun.entity.system.Cars">
+            <id column="cars"  property="id" />
+            <result column="cars_name" property="name" />
+            <result column="sale_price" property="sale_price" />
+        </association>
+        <association property="car_users" javaType="kesun.entity.system.CarUser">
+            <id column="car_users"  property="id" />
+            <result column="car_users_name" property="name" />
+        </association>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,cars,cars_name,sale_price,car_users,car_users_name,sale_counts,counts,sale_time
+    </sql>
+    <select id="getRowsCount" parameterType="java.util.Map"  resultType="java.lang.Integer">
+        select count(1) as total from vwsell where
+        <trim  suffixOverrides="or">
+            <if test="id!=null">
+                id like '%${id}%' or
+            </if>
+           <!-- <if test="name!=null">
+                name like '%${name}%' or
+            </if>-->
+        </trim>
+    </select>
+
+    <select id="selectForObject" parameterType="java.util.Map"  resultType="java.util.Map">
+        select <include refid="Base_Column_List" />
+        from vwsell where 1=1
+        <trim  suffixOverrides="or">
+            <if test="id!=null">
+                id like '%${id}%' or
+            </if>
+            <!--<if test="name!=null">
+                name like '%${name}%' or
+            </if>-->
+        </trim>
+        order by id ASC
+    </select>
+
+    <select id="findByPage" parameterType="java.util.Map"  resultType="java.util.Map">
+        select <include refid="Base_Column_List" />
+        from vwsell where
+        <trim  suffixOverrides="or">
+            <if test="id!=null">
+                id like '%${id}%' or
+            </if>
+            <!--<if test="name!=null">
+                name like '%${name}%' or
+            </if>-->
+        </trim>
+
+        order by id ASC
+        <if test="start !=0 or limit!=0">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+    <select id="selectForMap" parameterType="java.util.Map"  resultType="java.util.Map">
+        select <include refid="Base_Column_List" />
+        from vwsell where id like '%${id}%' order by id ASC
+
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from vwsell
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="findInUseById" parameterType="java.lang.String" resultType="java.util.Map">
+    select *
+    from cars
+    where 1=2
+</select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from sell
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+
+    <insert id="insert" parameterType="kesun.entity.system.Sell">
+        insert into sell (id, sale_time, counts, sale_counts, cars_id, car_users_id) values (
+        #{id,jdbcType=VARCHAR}, #{sale_time,jdbcType=TIMESTAMP}, #{counts,jdbcType=VARCHAR}, #{sale_counts,jdbcType=VARCHAR},
+        #{cars.id,jdbcType=VARCHAR},#{car_users.id,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="kesun.entity.system.Sell">
+        update sell
+        set
+        sale_time = #{sale_time,jdbcType=TIMESTAMP},
+        counts = #{counts,jdbcType=VARCHAR},
+        sale_counts = #{sale_counts,jdbcType=VARCHAR},
+        cars_id = #{cars.id,jdbcType=VARCHAR},
+        car_users_id = #{car_users.id,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

@@ -44,6 +44,7 @@
             <a href="#"><li class="li_bian" id="cars">汽车信息</li></a>
             <a href="#"><li class="li_bian" id="employee">员工信息</li></a>
             <a href="#"><li class="li_bian" id="store">库存管理</li></a>
+            <a href="#"><li class="li_bian" id="sell">销售管理</li></a>
         </div>
         <div title="通用网站后台" style="width:195px;" class="nav_gw">
             <a href="#"><li class="li_bian" id="website" hidden="hidden">子网站或频道管理</li></a>
@@ -216,6 +217,9 @@
         });
         $(document).on("click","#store",function() {
             addTab("汽车库存管理", getRootPath()+"/store/index");
+        });
+        $(document).on("click","#sell",function() {
+            addTab("汽车销售管理", getRootPath()+"/sell/index");
         });
         $(document).on("click","#notice",function() {
             addTab("通知管理", getRootPath()+"/notice/index");
