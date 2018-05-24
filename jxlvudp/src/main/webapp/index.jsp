@@ -34,25 +34,26 @@
             </shiro:hasPermission>
             <a href="#"><li class="li_bian"  id="actor">角色管理</li></a>
             <a href="#"><li class="li_bian" id="carUser">用户管理</li></a>
+            <a href="#"><li class="li_bian" id="employee">员工管理</li></a>
             <a href="#"><li class="li_bian" id="userOnline" hidden="hidden">用户在线管理</li></a>
             <a href="#"><li class="li_bian" id="systemMenu">系统菜单管理</li></a>
             <a href="#"><li class="li_bian" id="organization" hidden="hidden">组织机构管理</li></a>
             <a href="#"><li class="li_bian" id="clerk" hidden="hidden">员工管理</li></a>
             <a href="text1.html" target="content"><li class="li_bian" hidden="hidden">数据管理</li></a>
             <a href="#"><li class="li_bian" id="cartypes" hidden="hidden">汽车品牌信息管理</li></a>
-            <a href="#"><li class="li_bian" id="vender">厂家信息</li></a>
-            <a href="#"><li class="li_bian" id="cars">汽车信息</li></a>
-            <a href="#"><li class="li_bian" id="employee">员工信息</li></a>
             <a href="#"><li class="li_bian" id="store">库存管理</li></a>
-            <a href="#"><li class="li_bian" id="sell">销售管理</li></a>
+            <a href="#"><li class="li_bian" id="vender">厂家信息</li></a>
+            <a href="#"><li class="li_bian" id="cars">汽车管理</li></a>
+            <a href="#"><li class="li_bian" id="orders">订单管理</li></a>
+            <a href="#"><li class="li_bian" id="salesReturn">退货管理</li></a>
         </div>
         <div title="通用网站后台" style="width:195px;" class="nav_gw">
-            <a href="#"><li class="li_bian" id="website" hidden="hidden">子网站或频道管理</li></a>
-            <a href="#"><li class="li_bian" id="newsCategory" hidden="hidden">新闻分类管理</li></a>
-            <a href="#"><li class="li_bian" id="notice" hidden="hidden">通知管理</li></a>
+            <a href="#"><li class="li_bian" id="website">子网站或频道管理</li></a>
+            <a href="#"><li class="li_bian" id="newsCategory">新闻分类管理</li></a>
+            <a href="#"><li class="li_bian" id="notice">通知管理</li></a>
             <a href="#"><li class="li_bian" id="annoucement" >公告管理</li></a>
-            <a href="#"><li class="li_bian" id="news" hidden="hidden">新闻管理</li></a>
-            <a href="#"><li class="li_bian" id="newsCheck" hidden="hidden">新闻审核管理</li></a>
+            <a href="#"><li class="li_bian" id="news">新闻管理</li></a>
+            <a href="#"><li class="li_bian" id="newsCheck">新闻审核管理</li></a>
             <a href="#"><li class="li_bian" id="advertisement">广告管理</li></a>
             <a href="#"><li class="li_bian" id="leaveMSG">留言板留言</li></a>
             <a href="#"><li class="li_bian" id="leaveMessage">留言板管理</li></a>
@@ -204,22 +205,10 @@
             addTab("汽车销售信息管理", getRootPath()+"/cartypes/index");
         });
         $(document).on("click","#store",function() {
-            addTab("汽车库存信息管理", getRootPath()+"/store/index");
-        });
-        $(document).on("click","#employee",function() {
-            addTab("汽车信息管理", getRootPath()+"/employee/index");
+            addTab("库存管理", getRootPath()+"/store/index");
         });
         $(document).on("click","#vender",function() {
             addTab("汽车厂家信息管理", getRootPath()+"/vender/index");
-        });
-        $(document).on("click","#cars",function() {
-            addTab("汽车信息管理", getRootPath()+"/cars/index");
-        });
-        $(document).on("click","#store",function() {
-            addTab("汽车库存管理", getRootPath()+"/store/index");
-        });
-        $(document).on("click","#sell",function() {
-            addTab("汽车销售管理", getRootPath()+"/sell/index");
         });
         $(document).on("click","#notice",function() {
             addTab("通知管理", getRootPath()+"/notice/index");
@@ -248,6 +237,9 @@
         });
         $(document).on("click","#carUser",function() {
             addTab("用户管理", getRootPath()+"/carUser/index");
+        });
+        $(document).on("click","#employee",function() {
+            addTab("员工管理", getRootPath()+"/employee/index");
         });
         $(document).on("click","#userOnline",function() {
             addTab("用户在线管理", getRootPath()+"/user/userOnline");
@@ -278,6 +270,15 @@
 
         $(document).on("click","#testStore",function() {
             addTab("题库管理", getRootPath()+"/fillBlankTest/index");
+        });
+        $(document).on("click","#cars",function() {
+            addTab("汽车管理", getRootPath()+"/cars/index");
+        });
+        $(document).on("click","#orders",function() {
+            addTab("订单管理", getRootPath()+"/orders/index");
+        });
+        $(document).on("click","#salesReturn",function() {
+            addTab("退货管理", getRootPath()+"/salesReturn/index");
         });
         $("#aUser").click(function(){
             $("#winpwd").window('open');

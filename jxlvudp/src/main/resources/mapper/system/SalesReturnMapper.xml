@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.SalesReturnMapper">
+    <resultMap id="BaseResultMap" type="kesun.entity.system.SalesReturn">
+        <id column="id"  property="id" />
+        <result column="return_time" property="return_time" />
+        <result column="return_resourse" property="return_resourse" />
+        <association property="employee" javaType="kesun.entity.system.Employee">
+            <id column="employee"  property="id" />
+            <result column="employeeName" property="name" />
+        </association>
+        <association property="orders" javaType="kesun.entity.system.Orders">
+            <id column="orders"  property="id" />
+        </association>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,employee,employeeName,orders,return_time,return_resourse
+    </sql>
+    <select id="getRowsCount" parameterType="java.util.Map"  resultType="java.lang.Integer">
+        select count(1) as total from vwreturn where
+        <trim  suffixOverrides="or">
+            <if test="id!=null">
+                id like '%${id}%'
+            </if>
+            <if test="employeeName!=null">
+                employeeName like '%${employeeName}%' or
+            </if>
+        </trim>
+    </select>
+
+    <select id="selectForObject" parameterType="java.util.Map"  resultType="java.util.Map">
+        select <include refid="Base_Column_List" />
+        from vwreturn where 1=1
+        <trim  suffixOverrides="or">
+            <if test="id!=null">
+                id like '%${id}%' or
+            </if>
+            <if test="employeeName!=null">
+                employeeName like '%${employeeName}%' or
+            </if>
+        </trim>
+        order by employeeName ASC
+    </select>
+
+    <select id="findByPage" parameterType="java.util.Map"  resultType="java.util.Map">
+        select <include refid="Base_Column_List" />
+        from vwreturn where
+        <trim  suffixOverrides="or">
+            <if test="id!=null">
+                id like '%${id}%'or
+            </if>
+        <if test="employeeName!=null">
+            employeeName like '%${employeeName}%' or
+        </if>
+        </trim>
+
+        order by employeeName ASC
+        <if test="start !=0 or limit!=0">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+    <select id="selectForMap" parameterType="java.util.Map"  resultType="java.util.Map">
+        select <include refid="Base_Column_List" />
+        from vwreturn where employeeName like '%${employeeName}%' order by employeeName ASC
+
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from vwreturn
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="findInUseById" parameterType="java.lang.String" resultType="java.util.Map">
+        select e.*,o.*
+        from employee e,orders o
+        where 1=2
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from sales_return
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="kesun.entity.system.SalesReturn">
+        insert into sales_return (id,order_id,name,return_time,return_resourse) values
+        ( #{id,jdbcType=VARCHAR}, #{orders.id,jdbcType=VARCHAR}, #{employee.id,jdbcType=VARCHAR}, #{return_time,jdbcType=TIMESTAMP}, #{return_resourse,jdbcType=VARCHAR})
+
+    </insert>
+
+
+    <update id="updateByPrimaryKey" parameterType="kesun.entity.system.SalesReturn">
+        update sales_return
+        set
+        order_id = #{orders.id,jdbcType=VARCHAR},
+        name = #{employee.id,jdbcType=VARCHAR},
+        return_time = #{return_time,jdbcType=TIMESTAMP},
+        return_resourse = #{return_resourse,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+</mapper>
