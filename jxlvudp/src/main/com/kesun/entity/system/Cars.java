@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class Cars extends AbsBusinessTreeNode {
     private String color="";//颜色
-    private Date product_date = new Date();//出厂日期
+    private Date product_date=new Date();//出厂日期
     private String purchase_price="";//进价
     private String sale_price="";//出售价格
     private Vender vender=null;//厂家

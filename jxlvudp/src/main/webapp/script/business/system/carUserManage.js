@@ -48,12 +48,11 @@ $(function () {
             layer.msg("删除失败，数据在使用中...！");
         }
     });
-    // $("#btnFresh").click(function () {
-    //     var obj = new Object();
-    //     obj.condition = "";
-    //
-    //     jxmstc.findForEasyui("dgAnnouncement",obj)
-    // });
+     $("#btnFresh").click(function () {
+        var obj = new Object();
+        obj.condition = "";
+        jxmstc.findForEasyui("dgCarUser",obj)
+     });
 
     $("#btnAdd").click(function () {
         var toUrl=getRootPath()+"/admin/system/carUser/carUser.jsp?type=0";

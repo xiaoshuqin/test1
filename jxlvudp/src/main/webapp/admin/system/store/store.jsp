@@ -175,7 +175,7 @@ $(function () {
                     $("#txtParentID").val("");
                     $("#txtParent").val("");
                 }
-                $("#sltWeb").find("option[value='"+data.cars.id+"']").attr("selected","selected");
+                $("#cars").find("option[value='"+data.cars.id+"']").attr("selected","selected");
 
                 layui.use(['form'],function () {
                     var form=layui.form;

@@ -82,11 +82,11 @@
         from vworders
         where id = #{id,jdbcType=VARCHAR}
     </select>
-    <select id="findInUseById" parameterType="java.lang.String" resultType="java.util.Map">
+   <!-- <select id="findInUseById" parameterType="java.lang.String" resultType="java.util.Map">
         select e.*,u.*,c.*
         from employee e,car_users u,cars c
         where 1=2
-    </select>
+    </select>-->
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete from orders
         where id = #{id,jdbcType=VARCHAR}
@@ -108,111 +108,9 @@
         #{carUser.id,jdbcType=VARCHAR}, #{cars.id,jdbcType=VARCHAR})
     </insert>
 
-    <!--<insert id="batchInsert" parameterType="kesun.entity.system.Orders">
-        insert into orders
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="employee != null">
-                employee.id,
-            </if>
-            <if test="date != null">
-                date,
-            </if>
-            <if test="number != null">
-                number,
-            </if>
-            <if test="address != null">
-                address,
-            </if>
-            <if test="payment != null">
-                payment,
-            </if>
-            <if test="money != null">
-                money,
-            </if>
-            <if test="status != null">
-                status,
-            </if>
-            <if test="carUser != null">
-                user_id,
-            </if>
-            <if test="cars != null">
-                cars_id,
-            </if>
-
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=VARCHAR},
-            </if>
-            <if test="employee != null">
-                #{employee.id,jdbcType=VARCHAR},
-            </if>
-            <if test="date != null">
-                #{date,jdbcType=TIMESTAMP},
-            </if>
-            <if test="number != null">
-                #{number,jdbcType=VARCHAR},
-            </if>
-            <if test="address != null">
-                #{address,jdbcType=VARCHAR},
-            </if>
-            <if test="payment != null">
-                #{payment,jdbcType=VARCHAR},
-            </if>
-            <if test="money != null">
-                #{money,jdbcType=VARCHAR},
-            </if>
-            <if test="status != null">
-                #{status,jdbcType=VARCHAR},
-            </if>
-            <if test="carUser != null">
-                #{carUser.id,jdbcType=VARCHAR},
-            </if>
-            <if test="cars != null">
-                #{cars.id,jdbcType=VARCHAR},
-            </if>
-
-        </trim>
-    </insert>-->
-
-   <!-- <update id="updateByPrimaryKeySelective" parameterType="kesun.entity.system.Orders">
-        update orders
-        <set>
-            <if test="employee != null">
-                name = #{employee.id,jdbcType=VARCHAR},
-            </if>
-            <if test="date != null">
-                date = #{date,jdbcType=TIMESTAMP},
-            </if>
-            <if test="number != null">
-                number = #{number,jdbcType=VARCHAR},
-            </if>
-            <if test="address != null">
-                address = #{address,jdbcType=VARCHAR},
-            </if>
-            <if test="payment != null">
-                payment = #{payment,jdbcType=VARCHAR},
-            </if>
-            <if test="money != null">
-                money = #{money,jdbcType=VARCHAR},
-            </if>
-            <if test="status != null">
-                status = #{status,jdbcType=VARCHAR},
-            </if>
-            <if test="carUser != null">
-                user_id = #{carUser.id,jdbcType=VARCHAR},
-            </if>
-            <if test="cars != null">
-                cars_id = #{cars.id,jdbcType=VARCHAR},
-            </if>
-
-        </set>
-        where id = #{oldId,jdbcType=VARCHAR}
-    </update>-->
-
+    <select id="findInUseById" parameterType="java.lang.String" resultType="java.util.Map">
+        select id from sales_return where id=#{id,jdbcType=VARCHAR}
+    </select>
     <update id="updateByPrimaryKey" parameterType="kesun.entity.system.Orders">
         update orders
         set

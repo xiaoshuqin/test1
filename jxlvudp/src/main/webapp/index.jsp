@@ -45,6 +45,7 @@
             <a href="#"><li class="li_bian" id="vender">厂家信息</li></a>
             <a href="#"><li class="li_bian" id="cars">汽车管理</li></a>
             <a href="#"><li class="li_bian" id="orders">订单管理</li></a>
+            <a href="#"><li class="li_bian" id="sell">销售管理</li></a>
             <a href="#"><li class="li_bian" id="salesReturn">退货管理</li></a>
         </div>
         <div title="通用网站后台" style="width:195px;" class="nav_gw">
@@ -276,6 +277,9 @@
         });
         $(document).on("click","#orders",function() {
             addTab("订单管理", getRootPath()+"/orders/index");
+        });
+        $(document).on("click","#sell",function() {
+            addTab("销售管理", getRootPath()+"/sell/index");
         });
         $(document).on("click","#salesReturn",function() {
             addTab("退货管理", getRootPath()+"/salesReturn/index");
